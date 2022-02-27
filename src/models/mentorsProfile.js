@@ -1,7 +1,7 @@
 const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
-    class Industry extends Model {
-        /**
+    class MentorProfile extends Model {
+        /*
          * Helper method for defining associations.
          * This method is not a part of Sequelize lifecycle.
          * The `models/index` file will call this method automatically.
@@ -10,37 +10,39 @@ module.exports = (sequelize, DataTypes) => {
             // define association here
         }
     }
-    Industry.init(
+    MentorProfile.init(
         {
             id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
                 autoIncrement: true,
             },
-            name: DataTypes.STRING,
-            username: DataTypes.STRING,
-            email: DataTypes.STRING,
-            password:DataTypes.STRING
+            profile_image: DataTypes.STRING,
+
+            headline: DataTypes.TEXT,
+
+            location:DataTypes.STRING,
+
+            description:DataTypes.TEXT,
+            mentor_id:DataTypes.INTEGER
+
         },
         {
             // options
             sequelize,
-            modelName: 'Industry',
-            tableName: 'industry',
+            modelName: 'MentorProfile',
+            tableName: 'mentorProfile',
             createdAt: false,
             updatedAt: false,
             underscore: false,
         },
     );
-    Industry.associate=(models)=> {
-        Industry.hasOne(models.IndustryProfile, {
-                foreignKey: 'industry_id',
-            }
-        );
-        Industry.hasMany(models.IndustryServices, {
-                foreignKey: 'industry_id',
-            }
-        );
+
+    MentorProfile.associate=(models)=>{
+        MentorProfile.belongsTo(models.Mentor,{
+            foreignKey:'mentor_id',
+            targetKey:'id'
+        });
     }
-    return Industry;
+    return MentorProfile;
 };

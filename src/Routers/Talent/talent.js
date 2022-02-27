@@ -23,4 +23,3 @@ router.delete("/delete_all", TalentController.deleteAll);
 
 
 module.exports=router;
-

@@ -14,11 +14,11 @@ const invoicesRoutes = require('./Invoices/invoices');
 //subscriptions
 const subscriptionRoutes=require('./Subscription/subscriptions');
 //user
-const userRoutes = require('./User/user');
+const userRoutes = require('./User');
 //Mentor
-const mentorRoutes=require('./Mentor/Mentor');
+const mentorRoutes=require('./Mentor');
 //Industry
-const industryRoutes = require('./Idustry/industry');
+const industryRoutes = require('./Idustry');
 //Talent
 const talentRoutes = require('./Talent/talent');
 //Currency Unit

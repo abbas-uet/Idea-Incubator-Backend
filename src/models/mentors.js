@@ -32,5 +32,12 @@ module.exports = (sequelize, DataTypes) => {
             underscore: false,
         },
     );
+
+    Mentor.associate=(models)=>{
+        Mentor.hasOne(models.MentorProfile,{
+            foreignKey:'mentor_id',
+        });
+
+    }
     return Mentor;
 };
