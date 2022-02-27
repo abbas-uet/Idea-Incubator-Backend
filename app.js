@@ -42,10 +42,4 @@ app.listen(port,process.env.DB_HOST,(err,result)=>{
     }else{
         console.log("Connected at Port http://localhost:5000/");
     }
-})
-
-
-
-
-
-
+});
