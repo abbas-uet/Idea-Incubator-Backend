@@ -3,6 +3,7 @@ const Admin = db.Admin;
 const Op = db.Sequelize.Op;
 // Create and Save a new Admin
 exports.create = (req, res) => {
+    console.log(req.body);
     if (!req.body) {
         res.status(400).send({
             message: "Content can not be empty!"
@@ -13,7 +14,8 @@ exports.create = (req, res) => {
     const admin = {
         username: req.body.username,
         password: req.body.password,
-        fullname: req.body.fullname
+        fullname: req.body.fullname,
+        email:req.body.email,
     };
     // Save Admin in the database
     Admin.create(admin)
@@ -121,4 +123,27 @@ exports.deleteAll = (req, res) => {
             });
         });
 };
+
+exports.getLastId = (req, res) => {
+    Admin.findOne({
+        order: [ [ 'id', 'DESC' ]],
+        attributes:['id']
+    })
+        .then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({
+                    message: `Cannot find Admin with id=${id}.`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving Admin with id=" + id
+            });
+        });
+};
+
+
 

@@ -22,5 +22,9 @@ router.delete("/delete_admin/:id", adminController.delete);
 router.delete("/delete_all", adminController.deleteAll);
 
 
+//getting id of last Element
+router.get("/getLastId", adminController.getLastId);
+
+
 module.exports=router;
 

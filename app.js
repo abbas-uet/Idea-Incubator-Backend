@@ -1,7 +1,6 @@
 const express=require('express');
 const bodyparser = require('body-parser')
-const multer = require('multer')
-const path = require('path')
+const cors=require('cors');
 
 //Imports for Connecting to Databases
 require('dotenv').config();
@@ -9,8 +8,11 @@ const port=process.env.PORT||5000;
 const db=require('./src/models');
 
 const app = express();
+
 app.use(express.static("./public"))
 app.use(bodyparser.json())
+app.use(cors());
+
 app.use(bodyparser.urlencoded({
     extended: true
 }))
