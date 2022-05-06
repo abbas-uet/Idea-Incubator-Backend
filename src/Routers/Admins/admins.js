@@ -25,6 +25,15 @@ router.delete("/delete_all", adminController.deleteAll);
 //getting id of last Element
 router.get("/getLastId", adminController.getLastId);
 
+//getting the Department Associated with admin
+router.get("/view_admin_departments/:id", adminController.getOneAdminDepartment);
+
+//getting all the Department Associated with admin
+router.get("/get_all_admin_departments", adminController.getAllAdminDepartment);
+
+//getting all the Department Associated with admin
+router.get("/get_admin_fullname", adminController.getAllAdminName);
+
 
 module.exports=router;
 

@@ -37,6 +37,8 @@ module.exports = (sequelize, DataTypes) => {
             },
             fullname:{
                 type:DataTypes.STRING,
+            },role:{
+                type:DataTypes.INTEGER
             }
         },
         {
@@ -50,6 +52,9 @@ module.exports = (sequelize, DataTypes) => {
         },
     );
     User.associate=(models)=>{
+        User.belongsTo(models.Idea,{
+           foreignKey:'ideaId'
+        });
         User.hasMany(models.EmailsPromo,{
             foreignKey:'emailid',
         });
@@ -58,7 +63,10 @@ module.exports = (sequelize, DataTypes) => {
         });
         User.hasOne(models.UserProfile,{
             foreignKey:"user_id"
-        })
+        });
+        User.hasOne(models.Subscription);
+
+
     }
     return User;
 

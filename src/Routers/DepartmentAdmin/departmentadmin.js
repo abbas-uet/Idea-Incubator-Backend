@@ -21,6 +21,8 @@ router.delete("/delete_department_admin/:id", departmentAdminController.delete);
 // Delete all departmentAdmins
 router.delete("/delete_all", departmentAdminController.deleteAll);
 
+router.delete("/delete_department_admin", departmentAdminController.deleteDepartmentAdmin);
+
 
 module.exports=router;
 

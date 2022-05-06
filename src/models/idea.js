@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
             },
             name: DataTypes.STRING,
             email: DataTypes.STRING,
+            field:DataTypes.STRING,
             projectname: DataTypes.STRING
         },
         {
@@ -31,5 +32,10 @@ module.exports = (sequelize, DataTypes) => {
             underscore: false,
         },
     );
+    Idea.associate=(models)=> {
+        Idea.hasMany(models.User,{
+            foreignKey:'ideaId'
+        });
+    }
     return Idea;
 };

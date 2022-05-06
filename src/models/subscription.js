@@ -56,6 +56,9 @@ module.exports = (sequelize, DataTypes) => {
             onDelete:'cascade',
             foreignKey:'subscriptionId'
         })
+        Subscription.belongsTo(models.User,{
+            onDelete:'cascade'
+        });
     }
 
     return Subscription;

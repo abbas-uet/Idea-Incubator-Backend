@@ -13,7 +13,7 @@ exports.create = (req, res) => {
     const emailsPromo = {
         id: req.body.id,
         emailid: req.body.emailid,
-        duedate: req.body.duedate,
+        promoid: req.body.promoid,
 
     };
     // Save EmailsPromo in the database

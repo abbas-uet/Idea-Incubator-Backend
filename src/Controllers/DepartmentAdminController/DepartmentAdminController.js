@@ -1,5 +1,5 @@
 const db = require("../../models");
-const DepartmentAdmin = db.DepartmentDepartmentAdmin;
+const DepartmentAdmin = db.DepartmentAdmin;
 const Op = db.Sequelize.Op;
 // Create and Save a new DepartmentAdmin
 exports.create = (req, res) => {
@@ -11,9 +11,8 @@ exports.create = (req, res) => {
     }
     // Create a DepartmentAdmin
     const departmentAdmin = {
-        username: req.body.username,
-        password: req.body.password,
-        fullname: req.body.fullname
+        departmentId: req.body.departmentId,
+        adminId: req.body.adminId
     };
     // Save DepartmentAdmin in the database
     DepartmentAdmin.create(departmentAdmin)
@@ -122,3 +121,59 @@ exports.deleteAll = (req, res) => {
         });
 };
 
+
+// Delete an DepartmentAdmin with the specified id in the request
+exports.deleteByAttribute = (req, res) => {
+    const id = req.params.id;
+    const attr=req.params.attribute
+    DepartmentAdmin.destroy({
+        where: { attr: id }
+    })
+        .then(num => {
+            if (num === 1) {
+                res.send({
+                    message: "DepartmentAdmin was deleted successfully!"
+                });
+            } else {
+                res.send({
+                    message: `Cannot delete DepartmentAdmin with id=${id}. Maybe DepartmentAdmin was not found!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Could not delete DepartmentAdmin with id=" + id
+            });
+        });
+};
+
+
+
+// Delete an DepartmentAdmin with the specified id in the request
+exports.deleteDepartmentAdmin = (req, res) => {
+    const data=req.body.values;
+
+
+    DepartmentAdmin.destroy({
+        where: {
+            [data.attributeName1]: data.val1,
+            [data.attributeName2]:data.val2,
+}
+    })
+        .then(num => {
+            if (num === 1) {
+                res.send({
+                    message: "DepartmentAdmin was deleted successfully!"
+                });
+            } else {
+                res.send({
+                    message: `Cannot delete DepartmentAdmin with id=${data.val1}. Maybe DepartmentAdmin was not found!`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Could not delete DepartmentAdmin with id=" + data.val1
+            });
+        });
+};

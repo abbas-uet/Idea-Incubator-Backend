@@ -4,7 +4,7 @@ const db=require('../../models');
 const TalentController=require('../../Controllers/TalentController/TalentController');
 
 //getting all the Talent
-router.get('/view_talent',TalentController.getAll);
+router.get('/view_talents',TalentController.getAll);
 
 //Creating an Talent
 router.post('/create_talent',TalentController.create);

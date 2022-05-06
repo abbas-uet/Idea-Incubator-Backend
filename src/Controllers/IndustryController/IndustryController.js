@@ -30,7 +30,12 @@ exports.create = (req, res) => {
 };
 // Retrieve all Industry from the database.
 exports.getAll = (req, res) => {
-    Industry.findAll()
+    Industry.findAll({
+        include: [{
+            model: db.IndustryServices,
+        }],
+        attributes: {exclude: ['password']},
+    })
         .then(data => {
             res.send(data);
         })
@@ -44,7 +49,12 @@ exports.getAll = (req, res) => {
 // Find a single Industry with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
-    Industry.findByPk(id)
+    Industry.findByPk(id,{
+        include: [{
+            model: db.IndustryServices,
+        }],
+        attributes: {exclude: ['password']},
+    })
         .then(data => {
             if (data) {
                 res.send(data);
@@ -123,3 +133,21 @@ exports.deleteAll = (req, res) => {
         });
 };
 
+// Retrieve all Industry from the database.
+exports.getAllIndustryServices = (req, res) => {
+    Industry.findAll({
+        include: [{
+            model: db.IndustryServices,
+        }],
+        attributes: {exclude: ['password']},
+    })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving Industry."
+            });
+        });
+};

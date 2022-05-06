@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     }
     Talent.init(
         {
-            rollNo: {
+            id: {
                 type: DataTypes.INTEGER,
                 primaryKey: true,
                 allowNull: false
@@ -20,7 +20,9 @@ module.exports = (sequelize, DataTypes) => {
             name: DataTypes.STRING,
             session: DataTypes.STRING,
             email: DataTypes.STRING,
-            department:DataTypes.STRING
+            department:DataTypes.STRING,
+            rollNo:DataTypes.INTEGER,
+            skills:DataTypes.STRING
         },
         {
             // options

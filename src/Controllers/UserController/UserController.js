@@ -124,3 +124,162 @@ exports.deleteAll = (req, res) => {
         });
 };
 
+//get all the invoice for this user
+exports.getAllUserInvoices = (req, res) => {
+    const id = req.params.id;
+    User.findByPk(id,{
+        include: [{
+            model: db.Invoice,
+            required: true
+        }]
+    })
+        .then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({
+                    message: `Cannot find UserProfile with id=${id}.`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving UserProfile with id=" + id
+            });
+        });
+};
+
+
+
+//get all the User of a user
+exports.getAllUserSubscriptionsInvoicesLast = (req, res) => {
+    User.findAll({
+        include: [{
+            model: db.Subscription,
+        },{
+            model: db.Invoice,
+            order: [
+                ['invoiceid', 'DESC']],
+            limit:1
+        }],
+        attributes: {exclude: ['password']},
+    })
+        .then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({
+                    message: `No User Available .`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving Getting  User"
+            });
+        });
+};
+//get all the User of a user
+exports.getAllUserSubscriptionsInvoices = (req, res) => {
+    User.findAll({
+        include: [{
+            model: db.Subscription,
+        },{
+            model: db.Invoice,
+        }],
+        attributes: {exclude: ['password']},
+    })
+        .then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({
+                    message: `No User Available .`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving Getting  User"
+            });
+        });
+};
+
+//get all the User of a user
+exports.getAllUserSubscriptionsInvoicesById = (req, res) => {
+    const id=req.params.id
+    User.findByPk(id,{
+        include: [{
+            model: db.Subscription,
+        },{
+            model: db.Invoice,
+        }],
+        attributes: {exclude: ['password']},
+    })
+        .then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({
+                    message: `No User Available .`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving Getting  User"
+            });
+        });
+};
+
+
+
+
+exports.getUserIdea = (req, res) => {
+    User.findAll({
+        include: [{
+            model: db.Idea,
+        }],where:{
+            role:1
+        },
+        attributes: {exclude: ['password']},
+    }).then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({
+                    message: `No User Available .`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving Getting  User"
+            });
+        });
+};
+
+
+exports.getSubUserIdea = (req, res) => {
+    const ideaid=req.params.id
+    User.findAll({
+        where:{
+            role:0,
+            ideaId:ideaid
+        },
+        attributes: {exclude: ['password']},
+    }).then(data => {
+        if (data) {
+            res.send(data);
+        } else {
+            res.status(404).send({
+                message: `No User Available .`
+            });
+        }
+    })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving Getting  User"
+            });
+        });
+};

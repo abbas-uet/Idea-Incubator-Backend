@@ -125,3 +125,24 @@ exports.deleteAll = (req, res) => {
         });
 };
 
+
+
+// Retrieve all Invoices from the database.
+exports.getAllInvoicesUser = (req, res) => {
+    Invoice.findAll({
+        include: [{
+            model: db.User,
+            attributes: ['fullname'],
+        }],
+
+    })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message:
+                    err.message || "Some error occurred while retrieving Invoices."
+            });
+        });
+};

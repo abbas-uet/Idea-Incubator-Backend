@@ -22,5 +22,8 @@ router.delete("/delete_industry/:id", IndustryController.delete);
 router.delete("/delete_all", IndustryController.deleteAll);
 
 
+router.get('/get_all_industry_services',IndustryController.getAllIndustryServices)
+
+
 module.exports=router;
 

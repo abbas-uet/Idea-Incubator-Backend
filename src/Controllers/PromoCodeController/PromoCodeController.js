@@ -11,7 +11,7 @@ exports.create = (req, res) => {
     }
     // Create a PromoCode
     const promoCode = {
-        name: req.body.user,
+        name: req.body.name,
         discount: req.body.discount,
         unit: req.body.unit,
         expirydate:req.body.expirydate

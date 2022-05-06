@@ -22,9 +22,12 @@ insert into department(departmentname,admins) values('SE',1);
 
 
 /* adding the admin to department*/
-insert into departmentadmin(departmentId,adminId) values(1,1);
-insert into departmentadmin(departmentId,adminId) values(2,3);
-insert into departmentadmin(departmentId,adminId) values(3,3);
+insert into departmentadmin(departmentId,adminId) values(1,9);
+insert into departmentadmin(departmentId,adminId) values(2,9);
+insert into departmentadmin(departmentId,adminId) values(3,10);
+insert into departmentadmin(departmentId,adminId) values(1,15);
+insert into departmentadmin(departmentId,adminId) values(2,15);
+insert into departmentadmin(departmentId,adminId) values(3,14);
 
 
 /*Inserting the usdepartmenters */
@@ -39,7 +42,7 @@ insert into invoice(createdon,duedate,paymentMethod,ammount,status,userId) value
 insert into invoice(createdon,duedate,paymentMethod,ammount,status,userId) values(current_timestamp(),current_timestamp(),'online',6,'confirmed',1);
 insert into invoice(createdon,duedate,paymentMethod,ammount,status,userId) values(current_timestamp(),current_timestamp(),'online',46,'confirmed',1);
 insert into invoice(createdon,duedate,paymentMethod,ammount,status,userId) values(current_timestamp(),current_timestamp(),'online',56,'confirmed',1);
-
+insert into invoice(createdon,duedate,paymentMethod,ammount,status,userId) values('2022-03-15 06:15:40','2022-03-15 06:15:40','online',36,'confirmed',1);
 
 /* inserting into Currency Unit */
 insert into currencyunit(name) values('$');
@@ -48,9 +51,9 @@ insert into currencyunit(name) values('EURO');
 
 
 /* Inserting into subscription */
-insert into subscription(planname,type,billingperiod,ammount,unit) values('Standard','Basic','Monthly',427,1);
-insert into subscription(planname,type,billingperiod,ammount,unit) values('Gold','Pro','Monthly',427,2);
-insert into subscription(planname,type,billingperiod,ammount,unit) values('Standard','Standard','Monthly',427,3);
+insert into subscription(planname,type,billingperiod,ammount,unit,UserUserid) values('Standard','Basic','Monthly',427,1,1);
+insert into subscription(planname,type,billingperiod,ammount,unit,UserUserid) values('Gold','Pro','Monthly',427,2,2);
+insert into subscription(planname,type,billingperiod,ammount,unit,UserUserid) values('Standard','Standard','Monthly',427,3,3);
 
 
 

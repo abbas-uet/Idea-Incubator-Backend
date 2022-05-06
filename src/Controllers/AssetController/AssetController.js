@@ -1,7 +1,7 @@
 const db = require("../../models");
-const Admin = db.Admin;
+const Asset = db.Asset;
 const Op = db.Sequelize.Op;
-// Create and Save a new Admin
+// Create and Save a new Asset
 exports.create = (req, res) => {
     if (!req.body) {
         res.status(400).send({
@@ -9,122 +9,125 @@ exports.create = (req, res) => {
         });
         return;
     }
-    // Create a Admin
-    const admin = {
-        username: req.body.username,
-        password: req.body.password,
-        fullname: req.body.fullname,
-        email:req.body.email,
+    // Create a Asset
+    const asset = {
+        name: req.body.name,
+        type: req.body.type,
+        category: req.body.category,
+        description:req.body.description,
+        time_start:req.body.time_start,
+        time_end:req.body.time_end,
+        days:req.body.days,
     };
-    // Save Admin in the database
-    Admin.create(admin)
+    // Save Asset in the database
+    Asset.create(asset)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Admins."
+                    err.message || "Some error occurred while creating the Assets."
             });
         });
 };
-// Retrieve all Admins from the database.
+// Retrieve all Assets from the database.
 exports.getAll = (req, res) => {
-    Admin.findAll()
+    Asset.findAll()
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving Admins."
+                    err.message || "Some error occurred while retrieving Assets."
             });
         });
 };
-// Find a single Admin with an id
+// Find a single Asset with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
-    Admin.findByPk(id)
+    Asset.findByPk(id)
         .then(data => {
             if (data) {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find Admin with id=${id}.`
+                    message: `Cannot find Asset with id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Admin with id=" + id
+                message: "Error retrieving Asset with id=" + id
             });
         });
 };
-// Update an Admin by the id in the request
+// Update an Asset by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
-    Admin.update(req.body, {
+    Asset.update(req.body, {
         where: { id: id }
     })
         .then(num => {
             if (num[0] === 1) {
                 res.send({
-                    message: "Admin was updated successfully."
+                    message: "Asset was updated successfully."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Admin with id=${id}. Maybe Admin was not found or req.body is empty!`
+                    message: `Cannot update Asset with id=${id}. Maybe Asset was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Admin with id=" + id
+                message: "Error updating Asset with id=" + id
             });
         });
 };
-// Delete an Admin with the specified id in the request
+// Delete an Asset with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
-    Admin.destroy({
+    Asset.destroy({
         where: { id: id }
     })
         .then(num => {
             if (num === 1) {
                 res.send({
-                    message: "Admin was deleted successfully!"
+                    message: "Asset was deleted successfully!"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Admin with id=${id}. Maybe Admin was not found!`
+                    message: `Cannot delete Asset with id=${id}. Maybe Asset was not found!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Admin with id=" + id
+                message: "Could not delete Asset with id=" + id
             });
         });
 };
-// Delete all Admins from the database.
+// Delete all Assets from the database.
 exports.deleteAll = (req, res) => {
-    Admin.destroy({
+    Asset.destroy({
         where: {},
         truncate: false
     })
         .then(nums => {
-            res.send({ message: `${nums} Admins were deleted successfully!` });
+            res.send({ message: `${nums} Assets were deleted successfully!` });
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while removing all Admins."
+                    err.message || "Some error occurred while removing all Assets."
             });
         });
 };
 
 exports.getLastId = (req, res) => {
-    Admin.findOne({
+    Asset.findOne({
         order: [ [ 'id', 'DESC' ]],
         attributes:['id']
     })
@@ -133,24 +136,24 @@ exports.getLastId = (req, res) => {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find Admin with id=${id}.`
+                    message: `Cannot find Asset with id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Admin with id=" + id
+                message: "Error retrieving Asset with id=" + id
             });
         });
 };
 
 
-// Find a single Admin with an id
-exports.getOneAdminDepartment = (req, res) => {
+// Find a single Asset with an id
+exports.getOneAssetDepartment = (req, res) => {
     const id = req.params.id;
-    Admin.findByPk(id,{
+    Asset.findByPk(id,{
         include: [ {
-            model: db.DepartmentAdmin,
+            model: db.DepartmentAsset,
             attributes:['id'],
             include: {
                 model: db.Department,
@@ -163,13 +166,13 @@ exports.getOneAdminDepartment = (req, res) => {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find Admin with id=${id}.`
+                    message: `Cannot find Asset with id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Admin with id=" + id
+                message: "Error retrieving Asset with id=" + id
             });
         });
 };
@@ -178,11 +181,11 @@ exports.getOneAdminDepartment = (req, res) => {
 
 
 
-// Find a All the AdminDepartments
-exports.getAllAdminDepartment = (req, res) => {
-    Admin.findAll({
+// Find a All the AssetDepartments
+exports.getAllAssetDepartment = (req, res) => {
+    Asset.findAll({
         include: [ {
-            model: db.DepartmentAdmin,
+            model: db.DepartmentAsset,
             attributes:['id'],
             include: {
                 model: db.Department,
@@ -195,22 +198,22 @@ exports.getAllAdminDepartment = (req, res) => {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find Admin with id=${id}.`
+                    message: `Cannot find Asset with id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Admin with id=" + id
+                message: "Error retrieving Asset with id=" + id
             });
         });
 };
 
 
 
-// Find a All the AdminDepartments
-exports.getAllAdminName = (req, res) => {
-    Admin.findAll({
+// Find a All the AssetDepartments
+exports.getAllAssetName = (req, res) => {
+    Asset.findAll({
         attributes:['id','fullname'],
     })
         .then(data => {
@@ -218,13 +221,13 @@ exports.getAllAdminName = (req, res) => {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find Admin with id=${id}.`
+                    message: `Cannot find Asset with id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Admin with id=" + id
+                message: "Error retrieving Asset with id=" + id
             });
         });
 };

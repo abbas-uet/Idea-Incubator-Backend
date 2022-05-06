@@ -24,6 +24,7 @@ module.exports = (sequelize, DataTypes) => {
             time_start:DataTypes.DATE,
             time_end:DataTypes.DATE,
             days:DataTypes.INTEGER,
+            quantity:DataTypes.INTEGER,
         },
         {
             // options

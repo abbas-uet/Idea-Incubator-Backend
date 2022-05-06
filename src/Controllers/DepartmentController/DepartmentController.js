@@ -121,3 +121,57 @@ exports.deleteAll = (req, res) => {
         });
 };
 
+
+
+exports.getLastId = (req, res) => {
+    Department.findOne({
+        order: [ [ 'id', 'DESC' ]],
+        attributes:['id']
+    })
+        .then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({
+                    message: `Cannot find Admin with id=${id}.`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving Admin with id=" + id
+            });
+        });
+};
+
+exports.getOneDepartmentAdmin = (req, res) => {
+    const id = req.params.id;
+    Department.findByPk(id,{
+        include: [ {
+            model: db.DepartmentAdmin,
+            attributes:['id'],
+            include: {
+                model: db.Admin,
+                attributes:['id','fullname']
+            },
+        } ]
+    })
+        .then(data => {
+            if (data) {
+                res.send(data);
+            } else {
+                res.status(404).send({
+                    message: `Cannot find Admin with id=${id}.`
+                });
+            }
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: "Error retrieving Admin with id=" + id
+            });
+        });
+};
+
+
+
+

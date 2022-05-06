@@ -1,7 +1,7 @@
 const db = require("../../models");
-const Mentor = db.Mentor;
+const Idea = db.Idea;
 const Op = db.Sequelize.Op;
-// Create and Save a new Mentor
+// Create and Save a new Idea
 exports.create = (req, res) => {
     if (!req.body) {
         res.status(400).send({
@@ -9,138 +9,138 @@ exports.create = (req, res) => {
         });
         return;
     }
-    // Create a Mentor
-    const mentor = {
+    // Create a Idea
+    const idea = {
         name: req.body.name,
         email: req.body.email,
-        username: req.body.username,
-        password: req.body.password
+        field:req.body.field,
+        projectname:req.body.projectname,
     };
-    // Save Mentor in the database
-    Mentor.create(mentor)
+    // Save Idea in the database
+    Idea.create(idea)
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while creating the Mentor."
+                    err.message || "Some error occurred while creating the Ideas."
             });
         });
 };
-// Retrieve all Mentor from the database.
+// Retrieve all Ideas from the database.
 exports.getAll = (req, res) => {
-    Mentor.findAll()
+    Idea.findAll()
         .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving Mentor."
+                    err.message || "Some error occurred while retrieving Ideas."
             });
         });
 };
-// Find a single Mentor with an id
+// Find a single Idea with an id
 exports.findOne = (req, res) => {
     const id = req.params.id;
-    Mentor.findByPk(id)
+    Idea.findByPk(id)
         .then(data => {
             if (data) {
                 res.send(data);
             } else {
                 res.status(404).send({
-                    message: `Cannot find Mentor with id=${id}.`
+                    message: `Cannot find Idea with id=${id}.`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error retrieving Mentor with id=" + id
+                message: "Error retrieving Idea with id=" + id
             });
         });
 };
-// Update an Mentor by the id in the request
+// Update an Idea by the id in the request
 exports.update = (req, res) => {
     const id = req.params.id;
-    Mentor.update(req.body, {
-        where: { id: id }
+    Idea.update(req.body, {
+        where: { Ideaid: id }
     })
         .then(num => {
             if (num[0] === 1) {
                 res.send({
-                    message: "Mentor was updated successfully."
+                    message: "Idea was updated successfully."
                 });
             } else {
                 res.send({
-                    message: `Cannot update Mentor with id=${id}. Maybe Mentor was not found or req.body is empty!`
+                    message: `Cannot update Idea with id=${id}. Maybe Idea was not found or req.body is empty!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Error updating Mentor with id=" + id
+                message: "Error updating Idea with id=" + id
             });
         });
 };
-// Delete an Mentor with the specified id in the request
+// Delete an Idea with the specified id in the request
 exports.delete = (req, res) => {
     const id = req.params.id;
-    Mentor.destroy({
-        where: { id: id }
+    Idea.destroy({
+        where: { Ideaid: id }
     })
         .then(num => {
             if (num === 1) {
                 res.send({
-                    message: "Mentor was deleted successfully!"
+                    message: "Idea was deleted successfully!"
                 });
             } else {
                 res.send({
-                    message: `Cannot delete Mentor with id=${id}. Maybe Mentor was not found!`
+                    message: `Cannot delete Idea with id=${id}. Maybe Idea was not found!`
                 });
             }
         })
         .catch(err => {
             res.status(500).send({
-                message: "Could not delete Mentor with id=" + id
+                message: "Could not delete Idea with id=" + id
             });
         });
 };
-// Delete all Mentor from the database.
+// Delete all Ideas from the database.
 exports.deleteAll = (req, res) => {
-    Mentor.destroy({
+    Idea.destroy({
         where: {},
         truncate: false
     })
         .then(nums => {
-            res.send({ message: `${nums} Mentor were deleted successfully!` });
+            res.send({ message: `${nums} Ideas were deleted successfully!` });
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while removing all Mentor."
+                    err.message || "Some error occurred while removing all Ideas."
             });
         });
 };
 
 
 
-
-//get Alk Mentors profile Data
-exports.getAllMentors = (req, res) => {
-    Mentor.findAll({
+// Retrieve all Ideas from the database.
+exports.getAllIdeasUser = (req, res) => {
+    Idea.findAll({
         include: [{
-            model: db.MentorProfile,
+            model: db.User,
+            attributes: ['username','joindate','email',],
         }],
-        attributes: {exclude: ['password']},
-    }).then(data => {
+
+    })
+        .then(data => {
             res.send(data);
         })
         .catch(err => {
             res.status(500).send({
                 message:
-                    err.message || "Some error occurred while retrieving Mentor."
+                    err.message || "Some error occurred while retrieving Ideas."
             });
         });
 };
-

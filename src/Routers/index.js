@@ -33,6 +33,13 @@ const promoCodeRoutes = require('./PromoCode/promocode');
 const subscriptionPromoRoutes=require('./SubscriptionPromo/subscriptionpromo');
 //Files
 const filesRoutes=require('./Files/files');
+//Ideas
+const ideasRoutes=require('./Idea/ideas');
+//Asset
+const assetRoutes=require('./Assets/assets');
+
+//Zoom
+const zoomRoutes=require('./Zoom/Zoom');
 
 
 
@@ -43,16 +50,15 @@ const filesRoutes=require('./Files/files');
 
 
 
+router.use('/currency_units',currencyUnitRoutes);
 
-router.use('/currency_unit',currencyUnitRoutes);
+router.use('/department_admins',departmentAdminsRoutes);
 
-router.use('/department_admin',departmentAdminsRoutes);
+router.use('/email_promos',emailsPromoRoutes);
 
-router.use('/email_promo',emailsPromoRoutes);
+router.use('/promo_codes',promoCodeRoutes);
 
-router.use('/promo_code',promoCodeRoutes);
-
-router.use('/subscription_promo',subscriptionPromoRoutes);
+router.use('/subscription_promos',subscriptionPromoRoutes);
 
 router.use('/files',filesRoutes);
 
@@ -62,6 +68,8 @@ router.use('/admins',adminsRoutes);
 
 router.use('/departments',departmentRoutes);
 
+router.use('/department_admins',departmentAdminsRoutes);
+
 router.use('/invoices',invoicesRoutes);
 
 router.use('/subscriptions',subscriptionRoutes);
@@ -70,8 +78,14 @@ router.use('/users',userRoutes);
 
 router.use('/mentors',mentorRoutes);
 
-router.use('/industries',industryRoutes);
+router.use('/industrys',industryRoutes);
 
 router.use('/talents',talentRoutes);
+
+router.use('/ideas',ideasRoutes);
+
+router.use('/assets',assetRoutes);
+
+router.use('/zoom',zoomRoutes);
 
 module.exports = router;

@@ -22,5 +22,8 @@ router.delete("/delete_invoice/:id", invoiceController.delete);
 router.delete("/delete_all", invoiceController.deleteAll);
 
 
+// Delete all invoices
+router.get("/get_all_invoice_users", invoiceController.getAllInvoicesUser);
+
 module.exports=router;
 

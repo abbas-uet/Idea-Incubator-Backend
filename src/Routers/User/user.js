@@ -22,5 +22,22 @@ router.delete("/delete_user/:id", userController.delete);
 router.delete("/delete_all", userController.deleteAll);
 
 
+
+// getting all invoices for user
+router.get('/view_user_invoices/:id',userController.getAllUserInvoices);
+
+// Getting all the subscription_invoices_limit
+router.get('/get_all_user_subscriptions_invoices_limit',userController.getAllUserSubscriptionsInvoicesLast);
+
+
+router.get('/get_all_user_subscriptions_invoices',userController.getAllUserSubscriptionsInvoices);
+
+router.get('/get_all_user_subscriptions_invoices/:id',userController.getAllUserSubscriptionsInvoicesById);
+
+router.get('/get_all_user_ideas',userController.getUserIdea);
+
+router.get('/get_all_user_ideas_subUsers/:id',userController.getSubUserIdea);
+
+
 module.exports=router;
 

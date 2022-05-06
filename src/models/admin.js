@@ -35,6 +35,7 @@ module.exports = (sequelize, DataTypes) => {
     Admin.associate=(models)=>{
         Admin.hasMany(models.DepartmentAdmin,{
             foreignKey:'adminId',
+            onDelete:'cascade'
         })
     }
     return Admin;
